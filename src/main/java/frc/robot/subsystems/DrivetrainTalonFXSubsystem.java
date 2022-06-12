@@ -1,3 +1,9 @@
+/**
+ * Borrowed copiously from Phoenix-Example-Languages
+ * Java Talon FX (Falcon 500) -> DifferentialDrive
+ * https://github.com/CrossTheRoadElec/Phoenix-Examples-Languages
+ */
+
 package frc.robot.subsystems;
 
 
