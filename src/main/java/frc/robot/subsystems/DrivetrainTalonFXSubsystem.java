@@ -43,6 +43,7 @@ public class DrivetrainTalonFXSubsystem extends SubsystemBase {
         leftSlave.follow(leftMaster);
         rightSlave.follow(rightMaster);
 
+        // Spin counterclockwise (default) - Spin Clockwise (invert direction)
         leftMaster.setInverted(TalonFXInvertType.CounterClockwise);
         rightMaster.setInverted(TalonFXInvertType.Clockwise);
 
