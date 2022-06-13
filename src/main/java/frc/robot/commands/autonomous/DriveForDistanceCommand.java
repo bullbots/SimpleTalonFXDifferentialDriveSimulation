@@ -9,6 +9,8 @@ public class DriveForDistanceCommand extends CommandBase {
     private final double speed;
     private final double targetDistance;
 
+    private Double initialDistance = null;
+
     public DriveForDistanceCommand(DrivetrainTalonFXSubsystem drivetrainTalonFXSubsystem,
                                    double speed,
                                    double distance) {
@@ -20,8 +22,8 @@ public class DriveForDistanceCommand extends CommandBase {
 
     @Override
     public void initialize() {
-        System.out.println("INFO: DriveForDistanceCommand \"initialize\"");
-        drivetrainTalonFXSubsystem.reset();
+        System.out.printf("INFO: DriveForDistanceCommand \"initialize\" (Target Distance: %.02f)%n", targetDistance);
+        // drivetrainTalonFXSubsystem.reset();
         drivetrainTalonFXSubsystem.arcadeDrive(speed, 0.0);
     }
 
@@ -33,12 +35,21 @@ public class DriveForDistanceCommand extends CommandBase {
     @Override
     public boolean isFinished() {
         double dist = drivetrainTalonFXSubsystem.getAverageDistance();
-        return dist >= targetDistance;
+        return dist >= targetDistance + initialDistance();
     }
 
     @Override
     public void end(boolean interrupted) {
         System.out.printf("INFO: DriveForDistanceCommand \"end\": interrupted = %b%n", interrupted);
+        initialDistance = null;
         drivetrainTalonFXSubsystem.stop();
+    }
+
+    private double initialDistance() {
+        if (initialDistance == null) {
+            initialDistance = drivetrainTalonFXSubsystem.getAverageDistance();
+            System.out.println("Getting Initial Distance.. " + initialDistance);
+        }
+        return initialDistance;
     }
 }

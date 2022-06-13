@@ -82,6 +82,7 @@ public class DrivetrainTalonFXSubsystem extends SubsystemBase {
         double leftFeet = TalonFXUtil.nativeUnitsToDistanceFeet(leftMaster.getSelectedSensorPosition());
         double rightFeet = TalonFXUtil.nativeUnitsToDistanceFeet(rightMaster.getSelectedSensorPosition());
         System.out.printf("INFO: Left: %.02f, Right: %.02f%n", leftFeet, rightFeet);
+        System.out.printf("      Average: %.02f%n", (leftFeet + rightFeet) * 0.5);
         return (leftFeet + rightFeet) * 0.5;
     }
 
